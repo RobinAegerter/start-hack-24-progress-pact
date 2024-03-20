@@ -17,13 +17,18 @@ enum LifeArea {
   Relationships
 }
 
+enum Language {
+  English
+  German
+}
+
 model User {
   id             Int           @id @default(autoincrement())
   email          String        @unique
   name           String?
   updatedAt      DateTime      @updatedAt
   createdAt      DateTime      @default(now())
-  language       String
+  language       Language      @default(English)
   goals          Goal[]
   interests      Interest[]    @relation("userInterests")
   achievements   Achievement[] @relation("userAchievements")

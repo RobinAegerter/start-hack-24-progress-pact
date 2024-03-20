@@ -23,10 +23,10 @@ export default function SignIn() {
 
   return (
     <Tabs defaultValue={"sign-in-with-provider"}>
-      <TabsList className="grid w-full grid-cols-3">
+      <TabsList className="grid w-full grid-cols-1">
         <TabsTrigger value="sign-in-with-provider">Google</TabsTrigger>
-        <TabsTrigger value="sign-in-with-credentials">Sign in</TabsTrigger>
-        <TabsTrigger value="sign-up">Sign up</TabsTrigger>
+        {/* <TabsTrigger value="sign-in-with-credentials">Sign in</TabsTrigger>
+        <TabsTrigger value="sign-up">Sign up</TabsTrigger> */}
       </TabsList>
       <TabsContent
         value="sign-in-with-provider"
