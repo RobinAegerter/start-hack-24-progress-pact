@@ -6,7 +6,7 @@ export default function Navbar() {
     <div className="w-full shadow-md">
       <nav className="flex items-center justify-between p-5 mx-auto max-w-6xl">
         <Link href="/">
-          <h1 className="text-2xl font-bold">App Name</h1>
+          <h1 className="text-2xl font-bold">Progress Pact</h1>
         </Link>
         <MenuComponent />
       </nav>
