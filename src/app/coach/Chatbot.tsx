@@ -1,13 +1,10 @@
 "use client";
 
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { PaperPlaneIcon } from "@radix-ui/react-icons";
 import { useChat } from "ai/react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
-import { useState } from "react";
 
 export default function ChatBotComponent({ userImage }: { userImage: string }) {
   const clickButton = (text: string) => {
@@ -25,10 +22,10 @@ export default function ChatBotComponent({ userImage }: { userImage: string }) {
 
   const defaultQuestions = () => {
     return (
-      <div className="flex flex-col gap-2 p-3">
+      <div className="flex flex-col gap-2">
         <p>Ask a question</p>
         <Button
-          className="m-2 p-2 whitespace-normal"
+          className="p-5 whitespace-normal text-start"
           variant={"outline"}
           onClick={() => {
             clickButton(
@@ -39,7 +36,7 @@ export default function ChatBotComponent({ userImage }: { userImage: string }) {
           Can you help me set a realistic exercise goal for the month?
         </Button>
         <Button
-          className="m-2 whitespace-normal"
+          className="p-5 whitespace-normal text-start"
           variant={"outline"}
           onClick={() =>
             clickButton(
@@ -51,7 +48,7 @@ export default function ChatBotComponent({ userImage }: { userImage: string }) {
           weight?
         </Button>
         <Button
-          className="m-2 whitespace-normal"
+          className="p-5 whitespace-normal text-start"
           variant={"outline"}
           onClick={() =>
             clickButton(
@@ -67,7 +64,7 @@ export default function ChatBotComponent({ userImage }: { userImage: string }) {
   };
   const { messages, input, handleInputChange, handleSubmit } = useChat();
   return (
-    <div className="flex flex-col w-full max-w-md mx-auto stretch">
+    <div className="flex flex-col w-full p-5 max-w-md mx-auto stretch">
       <h2 className="text-3xl mb-5 m-2">Coach</h2>
       {messages.map((m) => (
         <div key={m.id} className="whitespace-pre-wrap">
