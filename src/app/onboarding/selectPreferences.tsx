@@ -42,7 +42,6 @@ export default class SelectPreferences extends React.Component<
   };
 
   handleClickButton(interest: Interest) {
-    console.log(this.state.interestsList);
     this.setState((prevState) => ({
       interestsList: prevState.interestsList.map((item) =>
         item.id === interest.id ? { ...item, selected: !item.selected } : item
@@ -60,8 +59,8 @@ export default class SelectPreferences extends React.Component<
               onClick={() => this.handleClickButton(interest as Interest)}
               className={`px-4 py-2 rounded-full ${
                 interest.selected
-                  ? "bg-primary text-white border border-primary"
-                  : "bg-white text-primary border border-primary"
+                  ? "bg-primary text-white border border-primary hover:bg-primary-200 hover:text-white-600"
+                  : "bg-white text-primary border border-primary hover:bg-gray-100 hover:text-primary-600"
               }`}
               variant={"outline"}
               key={interest.id}

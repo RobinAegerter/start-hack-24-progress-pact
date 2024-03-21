@@ -40,7 +40,8 @@ class OrganizationCards extends React.Component<OrganizationCardsProps, State> {
 
     const filteredOrganizations = this.props.organizationsData.filter(
       (org: Organisation) =>
-        org.location.toLowerCase().includes(searchTerm.toLowerCase())
+        org.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        org.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     return (
