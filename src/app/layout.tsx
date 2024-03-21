@@ -4,6 +4,9 @@ import { Toaster } from "@/components/ui/sonner";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
+import { Button } from "@/components/ui/button";
+import { TrashIcon } from "@radix-ui/react-icons";
+import MenuBar from "@/components/MenuBar/MenuBar";
 
 const inter = Poppins({ subsets: ["latin"], weight: "400" });
 
@@ -47,6 +50,9 @@ export default function RootLayout({
           <main className="">
             <div className="">{children}</div>
           </main>
+          <div className="fixed bottom-0 flex w-full">
+            <MenuBar />
+          </div>
         </NextAuthProvider>
         <Toaster />
       </body>

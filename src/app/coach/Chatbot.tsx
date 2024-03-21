@@ -89,7 +89,7 @@ export default function ChatBotComponent({ userImage }: { userImage: string }) {
       {messages.length === 0 ? defaultQuestions() : <div></div>}
       <form
         onSubmit={handleSubmit}
-        className="flex gap-2 flex-row fixed bottom-0 w-[calc(100%-1rem)] left-0 p-4 bg-white shadow-md"
+        className="flex gap-2 flex-row fixed bottom-11 w-[calc(100%-1rem)] left-0 p-4 bg-white shadow-md"
       >
         <Input
           className=""

@@ -122,7 +122,7 @@ function RenderModelComponent({
           width: "110vw",
           marginLeft: "-10vw",
           marginTop: "-20px",
-          height: "calc(100vh - 76px)",
+          height: "calc(100vh - 108px)",
         }}
       >
         <SetRendererCorrectly>
