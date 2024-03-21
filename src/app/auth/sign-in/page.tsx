@@ -22,27 +22,11 @@ export default function SignIn() {
   };
 
   return (
-    <Tabs defaultValue={"sign-in-with-provider"}>
-      <TabsList className="grid w-full grid-cols-1">
-        <TabsTrigger value="sign-in-with-provider">Google</TabsTrigger>
-        {/* <TabsTrigger value="sign-in-with-credentials">Sign in</TabsTrigger>
-        <TabsTrigger value="sign-up">Sign up</TabsTrigger> */}
-      </TabsList>
-      <TabsContent
-        value="sign-in-with-provider"
-        className="flex flex-col space-y-2"
-      >
-        <h2 className="text-xl">Sign in with Google!</h2>
-        <Button onClick={() => handleSignIn("google")}>
-          Sign in with Google
-        </Button>
-      </TabsContent>
-      <TabsContent value="sign-in-with-credentials">
-        <SignInForm callbackUrl={callbackUrl} />
-      </TabsContent>
-      <TabsContent value="sign-up">
-        <SignUpForm callbackUrl={callbackUrl} />
-      </TabsContent>
-    </Tabs>
+    <>
+      <h2 className="text-2xl mt-8">Login</h2>
+      <Button onClick={() => handleSignIn("google")}>
+        Sign in with Google
+      </Button>
+    </>
   );
 }

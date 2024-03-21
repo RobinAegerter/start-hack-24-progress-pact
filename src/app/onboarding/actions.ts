@@ -38,42 +38,97 @@ export async function selectInterests(interests: IInterest[]) {
   // })
 }
 
-
-  export async function selectFacility(facilityId: number) {
-    const session = await getServerSession(authOptions);
-    if (!session) {
-      throw new Error("Unauthorized");
-    }
-    await prisma.user.update({
-      where: {
-        id: session.user.dbId,
+export async function selectFacility(facilityId: number) {
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    throw new Error("Unauthorized");
+  }
+  await prisma.user.update({
+    where: {
+      id: session.user.dbId,
+    },
+    data: {
+      organisation: {
+        connect: {
+          id: facilityId,
+        },
       },
-      data: {
-        organisation: {
-          connect: {
-            id: facilityId,
+    },
+  });
+}
+
+export async function selectDepartment(departmentId: number) {
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    throw new Error("Unauthorized");
+  }
+  await prisma.user.update({
+    where: {
+      id: session.user.dbId,
+    },
+    data: {
+      department: {
+        connect: {
+          id: departmentId,
+        },
+      },
+    },
+  });
+  redirect("/app");
+}
+
+async function assignRandomChatPartner() {
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    throw new Error("Unauthorized");
+  }
+
+  const ownUser = await prisma.user.findFirst({
+    where: {
+      id: session.user.dbId,
+    },
+    include: {
+      interests: true,
+    },
+  });
+  if (!ownUser) {
+    return;
+  }
+
+  const user = await prisma.user.findFirst({
+    where: {
+      id: {
+        not: session.user.dbId,
+      },
+      interests: {
+        some: {
+          id: {
+            in: ownUser.interests.map((interest) => interest.id),
           },
         },
       },
-    });
-  }
-
-  export async function selectDepartment(departmentId: number) {
-    const session = await getServerSession(authOptions);
-    if (!session) {
-      throw new Error("Unauthorized");
-    }
-    await prisma.user.update({
-      where: {
-        id: session.user.dbId,
+    },
+    orderBy: {
+      chats: {
+        _count: "asc",
       },
-      data: {
-        department: {
-          connect: {
-            id: departmentId,
+    },
+  });
+  if (!user) {
+    throw new Error("No chat partners available");
+  }
+  await prisma.chat.create({
+    data: {
+      participants: {
+        connect: [
+          {
+            id: ownUser.id,
           },
-        },
+          {
+            id: user.id,
+          },
+        ],
       },
-    });
-    redirect("/app");
-  }
+    },
+  });
+}
