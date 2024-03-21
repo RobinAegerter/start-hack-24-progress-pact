@@ -75,7 +75,7 @@ export default class SelectPreferences extends React.Component<
             selectInterests(this.state.interestsList);
             this.props.onSubmit();
           }}
-          className="fixed bottom-0 inset-x-0 mx-auto mb-8 w-11/12 bg-primary text-white py-3 text-lg font-semibold rounded-full"
+          className="fixed bottom-11 inset-x-0 mx-auto mb-8 w-11/12 bg-primary text-white py-3 text-lg font-semibold rounded-full"
         >
           Next
         </Button>

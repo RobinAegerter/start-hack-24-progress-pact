@@ -25,7 +25,7 @@ export default function ChatBotComponent({ userImage }: { userImage: string }) {
 
   const defaultQuestions = () => {
     return (
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 p-3">
         <p>Ask a question</p>
         <Button
           className="m-2 p-2 whitespace-normal"
@@ -68,10 +68,10 @@ export default function ChatBotComponent({ userImage }: { userImage: string }) {
   const { messages, input, handleInputChange, handleSubmit } = useChat();
   return (
     <div className="flex flex-col w-full max-w-md mx-auto stretch">
-      <h2 className="text-3xl mb-5">Coach</h2>
+      <h2 className="text-3xl mb-5 m-2">Coach</h2>
       {messages.map((m) => (
         <div key={m.id} className="whitespace-pre-wrap">
-          <div className="flex items-center mb-2">
+          <div className="flex items-center m-3">
             <Avatar className="w-9 h-9">
               <AvatarImage
                 src={
@@ -83,13 +83,13 @@ export default function ChatBotComponent({ userImage }: { userImage: string }) {
               {m.role === "user" ? "User" : "AI"}
             </h2>
           </div>
-          <p className="m-5">{m.content}</p>
+          <p className="m-6">{m.content}</p>
         </div>
       ))}
       {messages.length === 0 ? defaultQuestions() : <div></div>}
       <form
         onSubmit={handleSubmit}
-        className="flex gap-2 flex-row fixed bottom-11 w-[calc(100%-1rem)] left-0 p-4 bg-white shadow-md"
+        className="flex gap-2 flex-row fixed bottom-12 w-[calc(100%-1rem)] left-0 p-4 bg-white shadow-md"
       >
         <Input
           className=""
