@@ -91,7 +91,6 @@ model Chat {
   participants    User[]    @relation("chatParticipants")
   leadingQuestion String    @default("What is on your mind?")
   messages        Message[]
-  userId          Int?
   updatedAt       DateTime  @updatedAt
   createdAt       DateTime  @default(now())
 }

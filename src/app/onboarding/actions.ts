@@ -76,3 +76,59 @@ export async function selectDepartment(departmentId: number) {
   });
   redirect("/avatar");
 }
+
+async function assignRandomChatPartner() {
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    throw new Error("Unauthorized");
+  }
+
+  const ownUser = await prisma.user.findFirst({
+    where: {
+      id: session.user.dbId,
+    },
+    include: {
+      interests: true,
+    },
+  });
+  if (!ownUser) {
+    return;
+  }
+
+  const user = await prisma.user.findFirst({
+    where: {
+      id: {
+        not: session.user.dbId,
+      },
+      interests: {
+        some: {
+          id: {
+            in: ownUser.interests.map((interest) => interest.id),
+          },
+        },
+      },
+    },
+    orderBy: {
+      chats: {
+        _count: "asc",
+      },
+    },
+  });
+  if (!user) {
+    throw new Error("No chat partners available");
+  }
+  await prisma.chat.create({
+    data: {
+      participants: {
+        connect: [
+          {
+            id: ownUser.id,
+          },
+          {
+            id: user.id,
+          },
+        ],
+      },
+    },
+  });
+}

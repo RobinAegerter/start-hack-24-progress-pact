@@ -25,12 +25,18 @@ export default function OnboardingTabs({
     textAlign: "center",
   };
   return (
-    <div>
+    <div className="flex w-full justify-center">
       <Tabs value={tab}>
-        <TabsList>
-          <TabsTrigger value="Interst-selection">Interest</TabsTrigger>
-          <TabsTrigger value="working-facility">working facility</TabsTrigger>
-          <TabsTrigger value="Departement">Departement</TabsTrigger>
+        <TabsList className="w-full">
+          <TabsTrigger className="w-full" value="Interst-selection">
+            Interest
+          </TabsTrigger>
+          <TabsTrigger className="w-full" value="working-facility">
+            working facility
+          </TabsTrigger>
+          <TabsTrigger className="w-full" value="Departement">
+            Departement
+          </TabsTrigger>
         </TabsList>
         <TabsContent value="Interst-selection">
           <div style={containerSytle}>

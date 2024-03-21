@@ -37,7 +37,6 @@ export function SignInForm({ callbackUrl }: { callbackUrl: string }) {
   async function onSubmit(values: z.infer<typeof signUpSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    console.log(values);
     const res = await signIn("credentials", {
       ...values,
       callbackUrl: callbackUrl,
