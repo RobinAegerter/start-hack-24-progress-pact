@@ -1,9 +1,9 @@
+import SignOutButton from "@/app/profile/SignOutButton";
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import MobileMenu from "./MobileMenu";
-import SignOutButton from "./SignOutButton";
 
 export enum SignInStatus {
   SignedIn,

@@ -4,16 +4,14 @@ import {
   OrbitControls,
   PerspectiveCamera,
   Plane,
-  SpotLightShadow,
 } from "@react-three/drei";
 import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber";
 import "client-only";
 import dynamic from "next/dynamic";
-import { Suspense, useEffect, useMemo, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
-import { Button } from "@/components/ui/button";
 import Lights from "./lights";
 
 /* 
@@ -156,7 +154,7 @@ export default dynamic(() => Promise.resolve(RenderModelComponent), {
   ssr: false,
 });
 
-function SetRendererCorrectly({ children }) {
+function SetRendererCorrectly({ children }: { children: React.ReactNode }) {
   const { gl } = useThree();
   useEffect(() => {
     gl.shadowMap.enabled = true;
