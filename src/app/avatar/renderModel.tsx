@@ -8,12 +8,13 @@ import {
 import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber";
 import "client-only";
 import dynamic from "next/dynamic";
-import { Suspense, useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import Lights from "./lights";
-
+import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
 /* 
 function Box(props: any) {
   // This reference will give us direct access to the mesh
@@ -72,13 +73,7 @@ const Model = ({ gltf, animationNumber }: any) => {
   return <primitive object={gltf.scene} args={[-10, -50, 0]} />;
 };
 
-function RenderModelComponent({
-  url,
-  hasHealthGoalAchieved,
-}: {
-  url: string;
-  hasHealthGoalAchieved: number;
-}) {
+function RenderModelComponent({ url }: { url: string }) {
   const model = useRef<THREE.Object3D>();
   const [animationNumber, setAnimationNumber] = useState<number | null>(null);
   const gltf = useLoader(GLTFLoader, url);
@@ -93,17 +88,18 @@ function RenderModelComponent({
   }, [gltf.scene, villageGltf.scene]);
 
   useEffect(() => {
-    console.log(hasHealthGoalAchieved);
-    if (hasHealthGoalAchieved === 0) {
+    if (url.includes("Sad")) {
       setAnimationNumber(3);
-    } else if (hasHealthGoalAchieved === 1) {
+    } else if (url.includes("Mid")) {
       setAnimationNumber(0);
-    } else if (hasHealthGoalAchieved === 2) {
+    } else if (url.includes("Happy")) {
       setAnimationNumber(1);
-    } else if (hasHealthGoalAchieved > 2) {
+    } else if (url.includes("Running")) {
       setAnimationNumber(2);
+    } else {
+      setAnimationNumber(0);
     }
-  }, [hasHealthGoalAchieved]);
+  }, [url]);
 
   const texture = useLoader(THREE.TextureLoader, "/grass.jpg");
 
@@ -115,8 +111,78 @@ function RenderModelComponent({
   //   which is probably why your example wasn't working
   texture.repeat.set(100, 100);
 
+  const [randomQuestion, setRandomQuestion] = useState<any>(null);
+
+  const whatIfQuestions = [
+    {
+      question: "What if I achieve my HEALTH goal?",
+      answer: (animationNumber) => {
+        const remember = animationNumber;
+        setAnimationNumber(2);
+        setTimeout(() => {
+          setAnimationNumber(remember);
+        }, 3000);
+      },
+    },
+    {
+      question: "What if I don't care about my health?",
+      answer: (animationNumber) => {
+        const remember = animationNumber;
+        setAnimationNumber(3);
+        setTimeout(() => {
+          setAnimationNumber(remember);
+        }, 3000);
+      },
+    },
+    {
+      question: "What if I engage in social activities?",
+      answer: (animationNumber) => {
+        const remember = animationNumber;
+        setAnimationNumber(1);
+        setTimeout(() => {
+          setAnimationNumber(remember);
+        }, 3000);
+      },
+    },
+  ];
+
+  useEffect(() => {
+    setTimeout(() => {
+      setRandomQuestion(
+        whatIfQuestions[Math.floor(Math.random() * whatIfQuestions.length)] ||
+          whatIfQuestions[0]
+      );
+    }, 1400);
+  }, []);
+
   return (
     <div className="overflow-x-hidden">
+      {randomQuestion && (
+        <div
+          style={{
+            position: "absolute",
+            top: 100,
+            right: 10,
+            zIndex: 100000,
+            maxWidth: "calc(100% - 20px)",
+          }}
+        >
+          <Button
+            onClick={() => {
+              randomQuestion.answer(animationNumber);
+              setRandomQuestion(null);
+            }}
+            style={{
+              zIndex: 100,
+              backgroundColor: "rgba(130, 130, 200, 0.9)",
+              backdropFilter: "blur(5px)",
+              fontSize: "1.2rem",
+            }}
+          >
+            {randomQuestion.question}
+          </Button>
+        </div>
+      )}
       <Canvas
         style={{
           width: "110vw",

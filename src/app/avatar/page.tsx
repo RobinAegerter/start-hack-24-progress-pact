@@ -25,20 +25,20 @@ export default async function App() {
 
   const url = () => {
     let url = "";
-    /*     if (events.length < 1) {
-      url += "1";
-    } else if (events.length < 3) {
-      url += "2";
-    } else {
-      url += "3";
-    } */
-
-    if (goals.some((goal) => goal.lifeArea === LifeArea.Health && goal.done)) {
-      url += "AvatarMitSchuhe";
-    } else {
-      url += "AvatarOhneSchuhe";
+    if (events.length < 1) {
+      url = "Sad";
+    } else if (events.length >= 1 || goals.length >= 1) {
+      url = "Mid";
+    } else if (events.length >= 1 && goals.length >= 1) {
+      url = "Happy";
+    } else if (
+      goals.length >= 1 &&
+      goals.some((goal) => goal.lifeArea === LifeArea.Health && goal.done)
+    ) {
+      url = "Running";
     }
-    return url + ".gltf";
+
+    return /* url + */ "AvatarMitSchuhe" + ".gltf";
   };
-  return <RenderModel hasHealthGoalAchieved={goals.length} url={url()} />;
+  return <RenderModel url={url()} />;
 }
