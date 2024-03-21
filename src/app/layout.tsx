@@ -4,6 +4,8 @@ import { Toaster } from "@/components/ui/sonner";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
+import { TrashIcon } from "@radix-ui/react-icons";
+import { Button } from "@/components/ui/button";
 
 const inter = Poppins({ subsets: ["latin"], weight: "400" });
 

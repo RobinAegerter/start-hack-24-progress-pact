@@ -5,9 +5,15 @@ import Link from "next/link";
 import RenderModel from "./avatar/renderModel";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 export default function Home() {
+  const session = useSession();
   const navigator = useRouter();
-  navigator.push("/avatar");
+  if (session.data?.user.dbId) {
+    navigator.push("/avatar");
+  } else {
+    navigator.push("/auth/sign-in");
+  }
   return <div></div>;
 }

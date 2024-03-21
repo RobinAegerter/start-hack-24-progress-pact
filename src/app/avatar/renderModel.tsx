@@ -84,13 +84,15 @@ function RenderModelComponent({
   const model = useRef<THREE.Object3D>();
   const [animationNumber, setAnimationNumber] = useState<number | null>(null);
   const gltf = useLoader(GLTFLoader, url);
+  const villageGltf = useLoader(GLTFLoader, "village.gltf");
   useEffect(() => {
     gltf.scene.traverse((child) => {
       child.castShadow = true;
     });
     gltf.scene.position.setY(-3);
     gltf.scene.position.setX(0.5);
-  }, [gltf.scene]);
+    villageGltf.scene.position.setY(-3);
+  }, [gltf.scene, villageGltf.scene]);
 
   useEffect(() => {
     console.log(hasHealthGoalAchieved);
@@ -126,8 +128,8 @@ function RenderModelComponent({
         }}
       >
         <SetRendererCorrectly>
-          <PerspectiveCamera makeDefault fov={50} position={[0, 3, 12]} />
-          <Environment preset="park" background />
+          <PerspectiveCamera makeDefault fov={65} position={[0, 3, 10]} />
+          <Environment preset="night" />
           <Plane
             castShadow
             receiveShadow
@@ -138,6 +140,7 @@ function RenderModelComponent({
           />
           <Suspense fallback={<div>Loading...</div>}>
             <Model ref={model} gltf={gltf} animationNumber={animationNumber} />
+            <Model gltf={villageGltf} />
           </Suspense>
           <Lights />
           <OrbitControls enablePan={false} enableZoom={false} />
@@ -156,7 +159,7 @@ export default dynamic(() => Promise.resolve(RenderModelComponent), {
   ssr: false,
 });
 
-function SetRendererCorrectly({ children }) {
+function SetRendererCorrectly({ children }: any) {
   const { gl } = useThree();
   useEffect(() => {
     gl.shadowMap.enabled = true;
