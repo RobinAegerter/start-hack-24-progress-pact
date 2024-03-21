@@ -27,18 +27,21 @@ export default async function App() {
     let url = "";
     if (events.length < 1) {
       url = "Sad";
-    } else if (events.length >= 1 || goals.length >= 1) {
+    }
+    if (events.length >= 1 || goals.length >= 1) {
       url = "Mid";
-    } else if (events.length >= 1 && goals.length >= 1) {
+    }
+    if (events.length >= 1 && goals.length >= 1) {
       url = "Happy";
-    } else if (
+    }
+    if (
       goals.length >= 1 &&
       goals.some((goal) => goal.lifeArea === LifeArea.Health && goal.done)
     ) {
       url = "Running";
     }
 
-    return /* url + */ "AvatarMitSchuhe" + ".gltf";
+    return url + ".gltf";
   };
   return <RenderModel url={url()} />;
 }
