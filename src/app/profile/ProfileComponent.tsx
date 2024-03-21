@@ -5,6 +5,7 @@ import DeleteAccountComponent from "./DeleteAccountComponent";
 
 import { prisma } from "@/lib/client";
 import { ProfileForm } from "./ProfileFormComponent";
+import SignOutButton from "./SignOutButton";
 
 export default async function ProfileComponent() {
   unstable_noStore();
@@ -38,6 +39,9 @@ export default async function ProfileComponent() {
       </div>
       <ProfileForm user={user} />
       <DeleteAccountComponent />
+      <div>
+        <SignOutButton> Sign Out </SignOutButton>
+      </div>
     </>
   );
 }
