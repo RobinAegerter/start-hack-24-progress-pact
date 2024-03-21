@@ -28,3 +28,16 @@ export async function createGoal(form: {
   });
   revalidatePath("/goals");
 }
+
+export async function updateDone(done: boolean, id: number) {
+  "use server";
+  await prisma.goal.update({
+    where: {
+      id,
+    },
+    data: {
+      done,
+    },
+  });
+  revalidatePath("/goals");
+}

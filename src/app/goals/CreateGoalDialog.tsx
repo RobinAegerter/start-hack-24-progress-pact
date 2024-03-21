@@ -1,30 +1,31 @@
 "use client";
 
-import { CopyIcon } from "@radix-ui/react-icons";
-
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { useState } from "react";
 import { FiPlus } from "react-icons/fi";
 import CreateGoalDialogForm from "./CreateGoalDialogForm";
 import { createGoal } from "./action";
-import { useState } from "react";
 
 export default function CreateGoalDialog() {
   const [popupOpen, setPopupOpen] = useState(false);
   return (
     <Dialog open={popupOpen} onOpenChange={(e) => setPopupOpen(e)}>
-      <div className="w-full flex justify-end pb-7 pt-2">
+      <div className="w-full flex justify-between items-center pb-7 pt-2">
+        <h2 className="text-2xl">Goals</h2>
         <DialogTrigger asChild>
-          <Button onClick={() => setPopupOpen(true)} variant={"outline"}>
+          <Button
+            onClick={() => setPopupOpen(true)}
+            variant={"outline"}
+            className="flex gap-2"
+          >
             <FiPlus />
             <span>New goal</span>
           </Button>

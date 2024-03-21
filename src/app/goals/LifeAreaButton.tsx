@@ -1,18 +1,19 @@
 "use client";
 
-import React from "react";
+import { LifeArea } from "@prisma/client";
 import { AnimatePresence, motion } from "framer-motion";
 import { bgColors } from "./bgColors";
-import { LifeArea } from "@prisma/client";
 
 function LifeAreaButton({
   children,
   achievedPercentage,
   lifeArea,
+  onClick,
 }: {
   children?: JSX.Element;
   achievedPercentage: number;
   lifeArea: LifeArea;
+  onClick?: () => void;
 }) {
   return (
     <motion.button
@@ -21,6 +22,7 @@ function LifeAreaButton({
       } w-1/4 box-border mx-2 h-20 border flex justify-end items-end`}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
+      onClick={onClick}
     >
       <span className="block relative z-10">{children}</span>
       <AnimatePresence>
