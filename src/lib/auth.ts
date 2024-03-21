@@ -95,10 +95,12 @@ export const authOptions: NextAuthOptions = {
           update: {
             name: user.name!,
             email: user.email!,
+            imageUrl: user.image,
           },
           create: {
             name: user.name!,
             email: user.email!,
+            imageUrl: user.image,
           },
         });
 
