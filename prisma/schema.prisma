@@ -31,6 +31,7 @@ model User {
   email          String        @unique
   name           String?
   language       Language      @default(English)
+  imageUrl       String?
   goals          Goal[]
   interests      Interest[]    @relation("userInterests")
   achievements   Achievement[] @relation("userAchievements")
@@ -41,6 +42,7 @@ model User {
   updatedAt      DateTime      @updatedAt
   createdAt      DateTime      @default(now())
   Message        Message[]
+  Event          Event[]
 }
 
 model Goal {
@@ -62,6 +64,8 @@ model Interest {
   users     User[]   @relation("userInterests")
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
+  events    Event[]  @relation("eventInterests")
+  eventId   Int?
 }
 
 model Achievement {
@@ -105,12 +109,15 @@ model Organisation {
 }
 
 model Event {
-  id           Int      @id @default(autoincrement())
+  id           Int        @id @default(autoincrement())
   title        String
   time         DateTime
   content      String
   location     String
-  participants User[]   @relation("userEvents")
-  updatedAt    DateTime @updatedAt
-  createdAt    DateTime @default(now())
+  creatorId    Int
+  interests    Interest[] @relation("eventInterests")
+  creator      User       @relation(fields: [creatorId], references: [id])
+  participants User[]     @relation("userEvents")
+  updatedAt    DateTime   @updatedAt
+  createdAt    DateTime   @default(now())
 }

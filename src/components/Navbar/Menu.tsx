@@ -47,6 +47,11 @@ export default async function MenuComponent() {
       requiresSignIn: SignInStatus.SignedIn,
     },
     {
+      name: "Events",
+      href: "/events",
+      requiresSignIn: SignInStatus.SignedIn,
+    },
+    {
       name: "Profile",
       href: "/profile",
       requiresSignIn: SignInStatus.SignedIn,
