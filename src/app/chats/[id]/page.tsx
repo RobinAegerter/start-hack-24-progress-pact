@@ -58,7 +58,7 @@ export default async function Chat({ params }: { params: { id: string } }) {
         <h2 className="text-2xl">{chat.leadingQuestion}</h2>
       </div>
       <MessageDisplay
-        messages={chat.messages.toReversed()}
+        messages={[...chat.messages].reverse()}
         authorId={session.user.dbId}
       />
       <MessageForm addMessageAction={addMessageAction} />
