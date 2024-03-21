@@ -5,6 +5,8 @@ Clone with: `npx create-next-app@latest my-new-next-app -e https://github.com/ra
 - [ ] add a error page
 - [ ] not found page
 - [ ] loading etc.
+- [ ] onboarding filter departments
+- [ ] 
 
 ## Getting Started
 

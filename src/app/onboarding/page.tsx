@@ -1,9 +1,6 @@
 import { authOptions } from "@/lib/auth";
-import { getServerSession } from "next-auth";
-import React from "react";
-import SelectPreferences from "./selectPreferences";
 import { prisma } from "@/lib/client";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { getServerSession } from "next-auth";
 import OnboardingTabs from "./OnboardingTabs";
 
 export default async function Chats() {
