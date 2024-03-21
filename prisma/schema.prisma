@@ -6,8 +6,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DATABASE_DIRECT_URL")
 }
 
 enum LifeArea {
@@ -20,17 +21,19 @@ enum LifeArea {
 enum Language {
   English
   German
+  French
+  Italian
+  Spanish
 }
 
 model User {
   id             Int           @id @default(autoincrement())
   email          String        @unique
   name           String?
-  updatedAt      DateTime      @updatedAt
-  createdAt      DateTime      @default(now())
   language       Language      @default(English)
   departmentId   Int?
   department     Department?   @relation(fields: [departmentId], references: [id])
+  imageUrl       String?
   goals          Goal[]
   interests      Interest[]    @relation("userInterests")
   achievements   Achievement[] @relation("userAchievements")
@@ -38,6 +41,10 @@ model User {
   organisationId Int?
   chats          Chat[]        @relation("chatParticipants")
   events         Event[]       @relation("userEvents")
+  updatedAt      DateTime      @updatedAt
+  createdAt      DateTime      @default(now())
+  Message        Message[]
+  Event          Event[]
 }
 
 model Department {
@@ -55,27 +62,38 @@ model Goal {
   done     Boolean
   lifeArea LifeArea
 
-  userId Int
-  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
 }
 
 model Interest {
-  id    Int    @id @default(autoincrement())
-  title String
-  users User[] @relation("userInterests")
+  id        Int      @id @default(autoincrement())
+  title     String
+  users     User[]   @relation("userInterests")
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+  events    Event[]  @relation("eventInterests")
+  eventId   Int?
 }
 
 model Achievement {
-  id    Int    @id @default(autoincrement())
-  title String
-  users User[] @relation("userAchievements")
+  id        Int      @id @default(autoincrement())
+  title     String
+  users     User[]   @relation("userAchievements")
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
 }
 
 model Chat {
-  id           Int       @id @default(autoincrement())
-  participants User[]    @relation("chatParticipants")
-  messages     Message[]
-  userId       Int?
+  id              Int       @id @default(autoincrement())
+  participants    User[]    @relation("chatParticipants")
+  leadingQuestion String    @default("What is on your mind?")
+  messages        Message[]
+  userId          Int?
+  updatedAt       DateTime  @updatedAt
+  createdAt       DateTime  @default(now())
 }
 
 model Message {
@@ -85,6 +103,10 @@ model Message {
   translatedContent String?
   chatId            Int
   chat              Chat     @relation(fields: [chatId], references: [id], onDelete: Cascade)
+  authorId          Int
+  author            User     @relation(fields: [authorId], references: [id])
+  updatedAt         DateTime @updatedAt
+  createdAt         DateTime @default(now())
 }
 
 model Organisation {
@@ -92,14 +114,21 @@ model Organisation {
   name       String
   location   String
   users      User[]
-  Department Department[]
+  Department Department 
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
 }
 
 model Event {
-  id           Int      @id @default(autoincrement())
+  id           Int        @id @default(autoincrement())
   title        String
   time         DateTime
   content      String
   location     String
-  participants User[]   @relation("userEvents")
+  creatorId    Int
+  interests    Interest[] @relation("eventInterests")
+  creator      User       @relation(fields: [creatorId], references: [id])
+  participants User[]     @relation("userEvents")
+  updatedAt    DateTime   @updatedAt
+  createdAt    DateTime   @default(now())
 }
