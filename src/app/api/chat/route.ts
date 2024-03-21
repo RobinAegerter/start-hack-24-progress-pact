@@ -27,7 +27,7 @@ export async function POST(req: Request) {
     });
 
     if (user) {
-      messages.push({
+      messages.unshift({
         role: "user",
         content: user.goals.length
           ? `I have ${
@@ -36,6 +36,11 @@ export async function POST(req: Request) {
               .map((g) => g.title)
               .join(", ")}`
           : "I don't have any goals",
+      });
+      messages.unshift({
+        role: "system",
+        content:
+          "You are a personal coach you help balblabl and identify issus and recommend professional help.",
       });
     }
   }
