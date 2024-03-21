@@ -2,21 +2,12 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
-import RenderModel from "./renderModel";
-import React, { useState } from "react";
+import RenderModel from "./avatar/renderModel";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
-  const [animate, setAnimate] = useState(false);
-  const handleAnimation = () => {
-    setAnimate(!animate);
-  };
-  return (
-    <div>
-      <main className="m-5"></main>
-      {/* <Copter /> */}
-      <RenderModel url="AvatarMitSchuhe.gltf" />
-      {/* <Stocks /> */}
-      {/* <App /> */}
-    </div>
-  );
+  const navigator = useRouter();
+  navigator.push("/avatar");
+  return <div></div>;
 }

@@ -57,7 +57,7 @@ export default async function Chats() {
     take: 10,
   });
   return (
-    <div>
+    <div className="mx-auto max-w-6xl p-5">
       <h2 className="text-2xl">Chats</h2>
       {chats.length === 0 && <p className="">No chats yet</p>}
       {chats.map((chat) => (

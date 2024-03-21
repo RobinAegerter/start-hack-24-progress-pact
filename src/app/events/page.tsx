@@ -35,7 +35,7 @@ export default async function EventsPage() {
   });
 
   return (
-    <div>
+    <div className="mx-auto max-w-6xl p-5">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl">Events</h2>
         <AddEvent interests={user.interests} />

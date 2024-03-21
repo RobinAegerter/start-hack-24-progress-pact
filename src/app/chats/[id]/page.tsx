@@ -48,7 +48,7 @@ export default async function Chat({ params }: { params: { id: string } }) {
     chat.participants[0].language
   );
   return (
-    <div className="flex flex-col justify-between h-[calc(100vh-116px)]">
+    <div className="flex flex-col justify-between h-[calc(100vh-116px)] mx-auto max-w-6xl p-5">
       <div className="flex gap-2 items-center mb-3">
         <Button size={"icon"} variant={"ghost"} asChild>
           <Link href={`/chats`}>

@@ -20,10 +20,12 @@ export default async function Chats() {
   console.log(departmentList);
 
   return (
-    <OnboardingTabs
-      interests={interestsList}
-      organization={organizationList}
-      department={departmentList}
-    />
+    <div className="mx-auto max-w-6xl p-5">
+      <OnboardingTabs
+        interests={interestsList}
+        organization={organizationList}
+        department={departmentList}
+      />
+    </div>
   );
 }

@@ -18,7 +18,7 @@ export default function EventItem({
   return (
     <Card className="mb-3">
       <div className="flex justify-between items-end">
-        <div className="flex flex-col m-5 mb-0 gap-[-2px]">
+        <div className="flex flex-col p-5 mb-0 gap-[-2px]">
           <h2 className="text-lg">{event.title}</h2>
           <span className="text-muted-foreground text-sm">
             {event.creator.name}
