@@ -116,7 +116,7 @@ function RenderModelComponent({ url }: { url: string }) {
   const whatIfQuestions = [
     {
       question: "What if I achieve my HEALTH goal?",
-      answer: (animationNumber) => {
+      answer: (animationNumber: number) => {
         const remember = animationNumber;
         setAnimationNumber(2);
         setTimeout(() => {
@@ -126,7 +126,7 @@ function RenderModelComponent({ url }: { url: string }) {
     },
     {
       question: "What if I don't care about my health?",
-      answer: (animationNumber) => {
+      answer: (animationNumber: number) => {
         const remember = animationNumber;
         setAnimationNumber(3);
         setTimeout(() => {
@@ -136,7 +136,7 @@ function RenderModelComponent({ url }: { url: string }) {
     },
     {
       question: "What if I engage in social activities?",
-      answer: (animationNumber) => {
+      answer: (animationNumber: number) => {
         const remember = animationNumber;
         setAnimationNumber(1);
         setTimeout(() => {
