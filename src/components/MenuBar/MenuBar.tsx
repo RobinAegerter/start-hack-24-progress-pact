@@ -109,10 +109,10 @@ export default async function MenuBar() {
     return false;
   });
   return (
-    <div className="w-full">
+    <div className="w-full bg-white">
       {filteredMenuItems.map((item, index) => {
         return (
-          <Link key={item.name} href={item.href}>
+          <Link key={item.name} href={item.href as any}>
             <Button
               // className="flex flex-col items-center justify-center"
               style={{
@@ -120,8 +120,8 @@ export default async function MenuBar() {
                 height: "50px",
                 width: "calc(20% - 4px)",
               }}
-              variant={item.variant ?? "outline"}
-              className="flex-col "
+              variant={"ghost"}
+              className="flex-col"
             >
               <div>{item.icon}</div>
               <div>{item.name}</div>

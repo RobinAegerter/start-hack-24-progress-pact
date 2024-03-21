@@ -14,7 +14,7 @@ export default async function Navbar() {
     userImageurl = session.user.image;
   }
   return (
-    <div className="w-full shadow-md">
+    <div className="w-full shadow-md fixed top-0 bg-white z-index: 10">
       <nav className="flex items-center justify-between p-5 mx-auto max-w-6xl">
         <Link href="/">
           <h1 className="text-2xl font-bold">Progress Pact</h1>
