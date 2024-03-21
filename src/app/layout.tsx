@@ -5,7 +5,6 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import { Button } from "@/components/ui/button";
-import { TrashIcon } from "@radix-ui/react-icons";
 import MenuBar from "@/components/MenuBar/MenuBar";
 
 const inter = Poppins({ subsets: ["latin"], weight: "400" });

@@ -2,6 +2,8 @@ import { CiHome, CiChat1 } from "react-icons/ci";
 import { FaHandsHelping } from "react-icons/fa";
 import { MdEmojiEvents } from "react-icons/md";
 import { LuGoal } from "react-icons/lu";
+import { LuTrophy } from "react-icons/lu";
+import { RiShakeHandsLine } from "react-icons/ri";
 import { Button } from "../ui/button";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
@@ -28,29 +30,11 @@ export default async function MenuBar() {
       name: "Home",
       icon: <CiHome className="size-5" />,
       href: "/",
-      requiresSignIn: SignInStatus.SignedOut,
-    },
-    {
-      name: "About",
-      icon: <CiHome className="size-5" />,
-      href: "/about",
-      requiresSignIn: SignInStatus.SignedOut,
-    },
-    {
-      name: "Contact",
-      icon: <CiHome className="size-5" />,
-      href: "/contact",
-      requiresSignIn: SignInStatus.SignedOut,
-    },
-    {
-      name: "Home",
-      icon: <CiHome className="size-5" />,
-      href: "/",
       requiresSignIn: SignInStatus.SignedIn,
     },
     {
       name: "Coach",
-      icon: <FaHandsHelping className="size-5" />,
+      icon: <RiShakeHandsLine className="size-5" />,
       href: "/coach",
       requiresSignIn: SignInStatus.SignedIn,
     },
@@ -68,7 +52,7 @@ export default async function MenuBar() {
     },
     {
       name: "Events",
-      icon: <MdEmojiEvents className="size-5" />,
+      icon: <LuTrophy className="size-5" />,
       href: "/events",
       requiresSignIn: SignInStatus.SignedIn,
     },

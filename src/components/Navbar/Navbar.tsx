@@ -19,11 +19,7 @@ export default async function Navbar() {
         <Link href="/">
           <h1 className="text-2xl font-bold">Progress Pact</h1>
         </Link>
-        {isLoggedIn ? (
-          <AvatarMenu userImage={userImageurl} />
-        ) : (
-          <Button></Button>
-        )}
+        {isLoggedIn ? <AvatarMenu userImage={userImageurl} /> : null}
       </nav>
     </div>
   );
