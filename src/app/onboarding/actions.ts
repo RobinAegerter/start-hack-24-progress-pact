@@ -74,7 +74,7 @@ export async function selectDepartment(departmentId: number) {
       },
     },
   });
-  redirect("/app");
+  redirect("/avatar");
 }
 
 async function assignRandomChatPartner() {

@@ -11,10 +11,12 @@ export default async function Chats() {
   const departmentList = await prisma.department.findMany();
 
   return (
-    <OnboardingTabs
-      interests={interestsList}
-      organization={organizationList}
-      department={departmentList}
-    />
+    <div className="mx-auto max-w-6xl p-5">
+      <OnboardingTabs
+        interests={interestsList}
+        organization={organizationList}
+        department={departmentList}
+      />
+    </div>
   );
 }

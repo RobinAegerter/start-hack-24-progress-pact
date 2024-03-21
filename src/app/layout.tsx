@@ -41,11 +41,11 @@ export default function RootLayout({
         <meta name="msapplication-TileColor" content="#da532c" />
         <meta name="theme-color" content="#ffffff"></meta>
       </head>
-      <body className={inter.className}>
+      <body className={`${inter.className}`}>
         <NextAuthProvider>
           <Navbar />
-          <main className="mx-auto max-w-6xl">
-            <div className="m-5">{children}</div>
+          <main className="">
+            <div className="">{children}</div>
           </main>
         </NextAuthProvider>
         <Toaster />

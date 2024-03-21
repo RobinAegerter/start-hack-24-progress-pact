@@ -21,8 +21,8 @@ export default async function Page() {
   }
 
   return (
-    <>
+    <div className="mx-auto max-w-6xl p-5">
       <ProfileComponent />
-    </>
+    </div>
   );
 }

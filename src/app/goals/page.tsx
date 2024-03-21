@@ -30,7 +30,7 @@ const NextComponent: React.FC = async () => {
   }, {} as { [key: string]: number });
 
   return (
-    <>
+    <div className="mx-auto max-w-6xl p-5">
       <CreateGoalDialog />
 
       <GoalDisplay
@@ -38,7 +38,7 @@ const NextComponent: React.FC = async () => {
         aggregatedGoals={aggregatedGoals}
         goals={goals}
       />
-    </>
+    </div>
   );
 };
 
