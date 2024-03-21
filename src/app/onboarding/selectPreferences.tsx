@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { selectInterests } from "./actions";
 import { Interest } from "@prisma/client";
+import React from "react";
+import { selectInterests } from "./actions";
 
-export interface IInterest extends Interest {
+export interface IInterest extends Partial<Interest> {
   selected: boolean;
 }
 
@@ -57,7 +57,7 @@ export default class SelectPreferences extends React.Component<
         <div style={this.interestGridStyle}>
           {this.state.interestsList.map((interest) => (
             <Button
-              onClick={() => this.handleClickButton(interest)}
+              onClick={() => this.handleClickButton(interest as Interest)}
               className={`px-4 py-2 rounded-full ${
                 interest.selected
                   ? "bg-primary text-white border border-primary"
