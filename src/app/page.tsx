@@ -13,7 +13,7 @@ export default function Home() {
   if (session.data?.user.dbId) {
     navigator.push("/avatar");
   } else {
-    navigator.push("/auth/sign-in");
+    navigator.push("/landing");
   }
   return <div></div>;
 }

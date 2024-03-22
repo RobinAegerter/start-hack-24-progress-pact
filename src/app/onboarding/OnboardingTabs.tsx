@@ -25,7 +25,7 @@ export default function OnboardingTabs({
     textAlign: "center",
   };
   return (
-    <div className="flex w-full justify-center">
+    <div className="flex w-full h-100 justify-center overflow-y-scroll">
       <Tabs value={tab}>
         <TabsList className="w-full">
           <TabsTrigger className="w-full" value="Interst-selection">
@@ -38,7 +38,10 @@ export default function OnboardingTabs({
             Departement
           </TabsTrigger>
         </TabsList>
-        <TabsContent value="Interst-selection">
+        <TabsContent
+          className="h-5/6 overflow-y-scroll"
+          value="Interst-selection"
+        >
           <div style={containerSytle}>
             <h1 className="text-3xl">Choose your interests</h1>
             <p className="m-5">

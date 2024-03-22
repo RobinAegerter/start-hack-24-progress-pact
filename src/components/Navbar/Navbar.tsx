@@ -5,6 +5,7 @@ import { Button } from "../ui/button";
 import AvatarMenu from "./AvatarMneu";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
 export default async function Navbar() {
   const session = await getServerSession(authOptions);
@@ -19,7 +20,13 @@ export default async function Navbar() {
         <Link href="/">
           <h1 className="text-2xl font-bold">Progress Pact</h1>
         </Link>
-        {isLoggedIn ? <AvatarMenu userImage={userImageurl} /> : null}
+        {isLoggedIn ? (
+          <AvatarMenu userImage={userImageurl} />
+        ) : (
+          <Link href="/auth/sign-in">
+            <Button>Sign In</Button>
+          </Link>
+        )}
       </nav>
     </div>
   );

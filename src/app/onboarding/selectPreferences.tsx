@@ -3,7 +3,17 @@
 import { Button } from "@/components/ui/button";
 import { Interest } from "@prisma/client";
 import React from "react";
-import { selectInterests } from "./actions";
+import { selectInterests, selectLanguage } from "./actions";
+import { FaArrowDown } from "react-icons/fa";
+import { Language } from "@prisma/client";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export interface IInterest extends Partial<Interest> {
   selected: boolean;
@@ -16,6 +26,8 @@ interface selectPreferencesProps {
 
 interface selectPreferencesState {
   interestsList: IInterest[];
+  selectLanguage: Language | undefined;
+  error: string | undefined;
 }
 
 export default class SelectPreferences extends React.Component<
@@ -25,6 +37,8 @@ export default class SelectPreferences extends React.Component<
   constructor(props: selectPreferencesProps) {
     super(props);
     this.state = {
+      error: undefined,
+      selectLanguage: undefined,
       interestsList: this.props.preference.map((interest) => ({
         title: interest.title,
         id: interest.id,
@@ -47,8 +61,12 @@ export default class SelectPreferences extends React.Component<
         item.id === interest.id ? { ...item, selected: !item.selected } : item
       ),
     }));
-    console.log(this.state.interestsList);
   }
+
+  handleChange = (language: Language) => {
+    this.setState({ selectLanguage: language });
+    this.setState({ error: undefined });
+  };
 
   render() {
     return (
@@ -70,8 +88,37 @@ export default class SelectPreferences extends React.Component<
             </Button>
           ))}
         </div>
+        <div className="mt-20 outline rounded-xl h-10">
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <h3 className="justify-center mt-1.5">
+                {this.state.selectLanguage === undefined
+                  ? "Choose your Language"
+                  : this.state.selectLanguage}
+              </h3>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              {Object.values(Language).map((language) => (
+                <DropdownMenuItem
+                  onSelect={() => this.handleChange(language)}
+                  key={language}
+                >
+                  {language}
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+        {this.state.error === undefined ? null : (
+          <div className="m-10 mb-60">{this.state.error}</div>
+        )}
         <Button
           onClick={() => {
+            if (this.state.selectLanguage === undefined) {
+              this.setState({ error: "Please select a language" });
+              return;
+            }
+            selectLanguage(this.state.selectLanguage);
             selectInterests(this.state.interestsList);
             this.props.onSubmit();
           }}
