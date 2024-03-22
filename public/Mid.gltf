@@ -6863,6 +6863,12 @@
 			"doubleSided":true,
 			"name":"Damaged Metal.001",
 			"pbrMetallicRoughness":{
+				"baseColorFactor":[
+					0.49963831901550293,
+					0.0013509821146726608,
+					0,
+					1
+				],
 				"baseColorTexture":{
 					"index":0
 				},
