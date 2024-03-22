@@ -9,6 +9,7 @@ import { PiUsersThree } from "react-icons/pi";
 import { LuHome } from "react-icons/lu";
 import React, { useEffect } from "react";
 import { usePathname } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 export interface FilteredMenuItem {
   name: string;
@@ -27,6 +28,7 @@ export enum SignInStatus {
 
 export default function MenuBar() {
   const pathname = usePathname();
+  const session = useSession();
   const menuItems = [
     {
       name: "Home",
@@ -62,29 +64,30 @@ export default function MenuBar() {
 
   return (
     <div className="w-full bg-white border-t border-slate-200">
-      {menuItems.map((item, index) => {
-        return (
-          <Link key={item.name} href={item.href as any}>
-            <Button
-              // className="flex flex-col items-center justify-center"
-              style={{
-                margin: 2,
-                height: "50px",
-                width: "calc(20% - 4px)",
-                color:
-                  pathname.includes(item.href as string) && item.href !== "/"
-                    ? "#326480"
-                    : "#000",
-              }}
-              variant={"ghost"}
-              className="flex-col"
-            >
-              <div>{item.icon}</div>
-              <div>{item.name}</div>
-            </Button>
-          </Link>
-        );
-      })}
+      {session.data?.user &&
+        menuItems.map((item, index) => {
+          return (
+            <Link key={item.name} href={item.href as any}>
+              <Button
+                // className="flex flex-col items-center justify-center"
+                style={{
+                  margin: 2,
+                  height: "50px",
+                  width: "calc(20% - 4px)",
+                  color:
+                    pathname.includes(item.href as string) && item.href !== "/"
+                      ? "#326480"
+                      : "#000",
+                }}
+                variant={"ghost"}
+                className="flex-col"
+              >
+                <div>{item.icon}</div>
+                <div>{item.name}</div>
+              </Button>
+            </Link>
+          );
+        })}
     </div>
   );
 }
