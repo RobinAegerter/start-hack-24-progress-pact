@@ -6,9 +6,9 @@ export default function SignIn() {
     signOut({ callbackUrl: "/" });
   };
   return (
-    <>
+    <div className="m-5">
       <h1>You can sign out here!</h1>
       <Button onClick={handleSignout}>Sign out</Button>
-    </>
+    </div>
   );
 }

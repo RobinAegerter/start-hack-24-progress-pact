@@ -22,11 +22,11 @@ export default function SignIn() {
   };
 
   return (
-    <>
+    <div className="p-5">
       <h2 className="text-2xl mt-8">Login</h2>
       <Button onClick={() => handleSignIn("google")}>
         Sign in with Google
       </Button>
-    </>
+    </div>
   );
 }

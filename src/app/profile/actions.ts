@@ -48,5 +48,5 @@ async function getUserId() {
 export async function deleteAccount() {
   const userId = await getUserId();
   await prisma.user.delete({ where: { id: userId } });
-  redirect("/api/auth/signout");
+  redirect("/auth/sign-out");
 }

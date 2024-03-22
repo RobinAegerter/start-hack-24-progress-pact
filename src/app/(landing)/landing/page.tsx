@@ -5,6 +5,6 @@ import { authOptions } from "@/lib/auth";
 import { LifeArea } from "@prisma/client";
 
 export default async function App() {
-  const url = "AvatarOhneSchuhe.gltf";
+  const url = "Running.gltf";
   return <RenderModel hasHealthGoalAchieved={1} url={url} />;
 }
