@@ -6,6 +6,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Goal } from "@prisma/client";
 import React from "react";
 import { bgColors } from "./bgColors";
+import Image from "next/image";
 
 const GoalEntry: React.FC<any> = ({
   goal,
@@ -14,6 +15,12 @@ const GoalEntry: React.FC<any> = ({
   goal: Goal;
   toggleCheckboxAction: (e: boolean, id: number) => void;
 }) => {
+  const [loading, setLoading] = React.useState(false);
+  async function toggleCheckbox(e: boolean) {
+    setLoading(true);
+    await toggleCheckboxAction(e, goal.id);
+    setLoading(false);
+  }
   return (
     <Card className="my-2">
       <CardContent className="p-5">
@@ -21,11 +28,20 @@ const GoalEntry: React.FC<any> = ({
           <p style={{ textDecoration: goal.done ? "line-through" : "none" }}>
             {goal.title}
           </p>
-          <Checkbox
-            className="w-6 h-6"
-            checked={goal.done}
-            onCheckedChange={(e) => toggleCheckboxAction(!!e, goal.id)}
-          />
+          {loading ? (
+            <Image
+              src={"/loading.gif"}
+              height={40}
+              width={40}
+              alt={"Loading"}
+            />
+          ) : (
+            <Checkbox
+              className="w-6 h-6"
+              checked={goal.done}
+              onCheckedChange={(e) => toggleCheckbox(!!e)}
+            />
+          )}
         </div>
       </CardContent>
       <CardFooter>
@@ -33,7 +49,7 @@ const GoalEntry: React.FC<any> = ({
           <p>{goal.deadline.toDateString()}</p>
           <Badge
             className={`${
-              bgColors.find((c) => c.lifeArea === goal.lifeArea)?.background
+              bgColors.find((c) => c.lifeArea === goal.lifeArea)?.badge
             }`}
           >
             {goal.lifeArea}

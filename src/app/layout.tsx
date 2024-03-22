@@ -46,7 +46,7 @@ export default function RootLayout({
       <body className={`${inter.className}`}>
         <NextAuthProvider>
           <Navbar />
-          <main style={{ marginTop: "76px" }}>
+          <main style={{ marginTop: "76px", paddingBottom: 50 }}>
             <div className="">{children}</div>
           </main>
           <div className="fixed bottom-0 flex w-full">

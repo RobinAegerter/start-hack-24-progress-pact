@@ -1,13 +1,14 @@
-import { CiHome, CiChat1 } from "react-icons/ci";
-import { FaHandsHelping } from "react-icons/fa";
-import { MdEmojiEvents } from "react-icons/md";
+"use client";
+
 import { LuGoal } from "react-icons/lu";
-import { LuTrophy } from "react-icons/lu";
 import { RiShakeHandsLine } from "react-icons/ri";
 import { Button } from "../ui/button";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
 import Link from "next/link";
+import { LuMessageSquare } from "react-icons/lu";
+import { PiUsersThree } from "react-icons/pi";
+import { LuHome } from "react-icons/lu";
+import React, { useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 export interface FilteredMenuItem {
   name: string;
@@ -24,12 +25,13 @@ export enum SignInStatus {
   Both,
 }
 
-export default async function MenuBar() {
+export default function MenuBar() {
+  const pathname = usePathname();
   const menuItems = [
     {
       name: "Home",
-      icon: <CiHome className="size-5" />,
-      href: "/",
+      icon: <LuHome className="size-5" />,
+      href: "/avatar",
       requiresSignIn: SignInStatus.SignedIn,
     },
     {
@@ -46,55 +48,21 @@ export default async function MenuBar() {
     },
     {
       name: "Chat",
-      icon: <CiChat1 className="size-5" />,
+      icon: <LuMessageSquare className="size-5" />,
       href: "/chats",
       requiresSignIn: SignInStatus.SignedIn,
     },
     {
       name: "Events",
-      icon: <LuTrophy className="size-5" />,
+      icon: <PiUsersThree className="size-5" />,
       href: "/events",
       requiresSignIn: SignInStatus.SignedIn,
     },
-    // {
-    //   name: "Profile",
-    //   icon: <CiHome />,
-    //   href: "/profile",
-    //   requiresSignIn: SignInStatus.SignedIn,
-    // },
-    // {
-    //   name: "Sign In",
-    //   icon: <CiHome />,
-    //   href: "/auth/sign-in",
-    //   requiresSignIn: SignInStatus.SignedOut,
-    //   variant: "default",
-    // },
-    // {
-    //   name: "Sign Out",
-    //   icon: <CiHome />,
-    //   href: "/auth/sign-out",
-    //   action: "signOut",
-    //   requiresSignIn: SignInStatus.SignedIn,
-    // },
   ] as FilteredMenuItem[];
 
-  const session = await getServerSession(authOptions);
-
-  const filteredMenuItems = menuItems.filter((item) => {
-    if (item.requiresSignIn === SignInStatus.Both) {
-      return true;
-    }
-    if (item.requiresSignIn === SignInStatus.SignedIn && session) {
-      return true;
-    }
-    if (item.requiresSignIn === SignInStatus.SignedOut && !session) {
-      return true;
-    }
-    return false;
-  });
   return (
-    <div className="w-full bg-white">
-      {filteredMenuItems.map((item, index) => {
+    <div className="w-full bg-white border-t border-slate-200">
+      {menuItems.map((item, index) => {
         return (
           <Link key={item.name} href={item.href as any}>
             <Button
@@ -103,6 +71,10 @@ export default async function MenuBar() {
                 margin: 2,
                 height: "50px",
                 width: "calc(20% - 4px)",
+                color:
+                  pathname.includes(item.href as string) && item.href !== "/"
+                    ? "#326480"
+                    : "#000",
               }}
               variant={"ghost"}
               className="flex-col"

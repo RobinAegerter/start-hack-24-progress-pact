@@ -7,6 +7,8 @@ import { MdFactory } from "react-icons/md";
 import GoalEntry from "./GoalEntry";
 import LifeAreaButton from "./LifeAreaButton";
 import { updateDone } from "./action";
+import { AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 export default function GoalDisplay({
   aggregatedGoalsTotal,
@@ -81,41 +83,40 @@ export default function GoalDisplay({
         </LifeAreaButton>
       </div>
       <div className="w-full flex justify-between flex-col mt-8">
-        {goals.filter((goal) =>
-          selectedArea ? goal.lifeArea === selectedArea : true
-        ).length === 0 && (
-          <div>
-            <h2 className="text-2xl">No goals found</h2>
-          </div>
-        )}
-
-        {goals
-          .filter((goal) =>
+        <AnimatePresence mode="sync">
+          {goals.filter((goal) =>
             selectedArea ? goal.lifeArea === selectedArea : true
-          )
-          .filter((goal) => !goal.done)
-          .sort((a, b) => (a.deadline > b.deadline ? 1 : -1))
-          .map((goal) => (
-            <GoalEntry
-              key={goal.id}
-              goal={goal}
-              toggleCheckboxAction={updateDone}
-            />
-          ))}
+          ).length === 0 && (
+            <div>
+              <h2 className="text-2xl">
+                No goals found{selectedArea ? ` for ${selectedArea}` : ""}
+              </h2>
+            </div>
+          )}
+          {goals
+            .filter((goal) =>
+              selectedArea ? goal.lifeArea === selectedArea : true
+            )
+            .filter((goal) => !goal.done)
+            .sort((a, b) => (a.deadline > b.deadline ? 1 : -1))
+            .map((goal) => (
+              <motion.div layoutId={goal.id + "el"} key={goal.id}>
+                <GoalEntry goal={goal} toggleCheckboxAction={updateDone} />
+              </motion.div>
+            ))}
 
-        {goals
-          .filter((goal) =>
-            selectedArea ? goal.lifeArea === selectedArea : true
-          )
-          .filter((goal) => goal.done)
-          .sort((a, b) => (a.deadline > b.deadline ? 1 : -1))
-          .map((goal) => (
-            <GoalEntry
-              key={goal.id}
-              goal={goal}
-              toggleCheckboxAction={updateDone}
-            />
-          ))}
+          {goals
+            .filter((goal) =>
+              selectedArea ? goal.lifeArea === selectedArea : true
+            )
+            .filter((goal) => goal.done)
+            .sort((a, b) => (a.deadline > b.deadline ? 1 : -1))
+            .map((goal) => (
+              <motion.div layoutId={goal.id + "el"} key={goal.id}>
+                <GoalEntry goal={goal} toggleCheckboxAction={updateDone} />
+              </motion.div>
+            ))}
+        </AnimatePresence>
       </div>
     </>
   );

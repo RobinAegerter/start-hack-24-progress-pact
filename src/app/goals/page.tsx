@@ -5,9 +5,12 @@ import CreateGoalDialog from "./CreateGoalDialog";
 import GoalDisplay from "./GoalDisplay";
 const NextComponent: React.FC = async () => {
   const session = await getServerSession(authOptions);
+  if (!session) {
+    throw new Error("Unauthorized");
+  }
   const goals = await prisma.goal.findMany({
     where: {
-      userId: session?.user.dbId,
+      userId: session.user.dbId,
     },
   });
 

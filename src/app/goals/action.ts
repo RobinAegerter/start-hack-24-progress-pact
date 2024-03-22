@@ -40,4 +40,5 @@ export async function updateDone(done: boolean, id: number) {
     },
   });
   revalidatePath("/goals");
+  return;
 }

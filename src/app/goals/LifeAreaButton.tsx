@@ -19,7 +19,7 @@ function LifeAreaButton({
     <motion.button
       className={`p-3 text-xl rounded-md transition-colors relative ${
         bgColors.find((c) => c.lifeArea === lifeArea)?.background
-      } w-1/4 box-border mx-2 h-20 border flex justify-end items-end`}
+      } w-1/4 box-border mx-2 h-24 border flex justify-end items-end`}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
       onClick={onClick}
